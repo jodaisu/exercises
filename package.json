@@ -1,0 +1,16 @@
+{
+  "name": "exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "setTimeout.js",
+  "dependencies": {
+    "jest": "^26.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node node_modules/jest/bin/jest.js --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
