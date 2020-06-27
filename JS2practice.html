@@ -49,6 +49,9 @@
   </h1> <button class="btn8">START</button> <button class="pause">PAUSE</button> <button class="reset8">RESET</button>
   <br />
 
+  <! - 9 ->
+  <input class="inp9" type="text" placeholder="type here"> <input class="speed" type="number">
+  <div class="view9"></div>
   
 </body>
 <script>
@@ -281,10 +284,36 @@
       view8.innerText = "00:00"
       pause.innerText = "PAUSE"
     }
-    isRunning =
+    isRunning = false
     counter = 0
   }
 
+  // 9
+  // <input class="inp9" type="text" placeholder="string"> <input class="speed" type="number">
+  // <div class="view9"></div>  
+  const view9 = document.querySelector('.view9')
+  const inp9 = document.querySelector('.inp9')
+  const speed = document.querySelector('.speed')
+
+  const defaultText = "Blink Test"
+  const defaultTime = 3
+
+  let shouldHide = false
+  // blink logic
+  const blink = () => {
+    let txt = inp9.value || defaultText
+    if (shouldHide) {
+      txt = ''
+    }
+    view9.innerText = txt
+    shouldHide = !shouldHide
+  
+    const time = +speed.value || defaultTime
+    setTimeout(blink, 1000/time)
+  }
+  blink()
+
+  
   
 
 </script> 
