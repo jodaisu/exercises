@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS2.1</title>
+</head>
+<body>
+<!- 1 ->
+<h1>Countdown</h1>
+<input class="inp1" type="number"> <button class="btn1">Start</button>
+<h1 class="view1"></h1>
+<br />
+
+<!- 2 ->
+<input class="inp2" type="text"> <button class="btn2">Send</button>
+<div class="view2"> </div>
+<br />
+
+<!- 3 ->
+<input class="inp3" type="text"> <span class="cont3"> <button class="btn3">Start</button></span>
+<div class="view3"> </div>
+<br />
+
+<!- 4 ->
+<button class="btn4">Add</button>
+<h1 class="view4"></h1>
+<br />
+
+<!- 5 ->
+<button class="btn5">Toggle</button>
+<div class="view5"></div>
+
+<script>
+
+// 1 
+const inp1 = document.querySelector('.inp1')
+const btn1 = document.querySelector('.btn1')
+const view1 = document.querySelector('.view1')
+
+let num
+
+const run1 = () => {
+  if (num < 0) return
+  view1.innerText = num
+  num = num - 1
+  setTimeout(run1, 1000)
+} 
+
+btn1.onclick = () => {
+  num = +inp1.value
+  run1()
+}
+
+// 2 
+const inp2 = document.querySelector('.inp2')
+const btn2 = document.querySelector('.btn2')
+const view2 = document.querySelector('.view2')
+
+btn2.onclick = () => {
+  const text = `${view2.innerHTML} <h1>${inp2.value}</h1>`
+  view2.innerHTML = text
+  inp2.value = ''
+}
+
+// enter to send text
+inp2.addEventListener("keyup", (e) => {
+  // Number 13 is the "Enter" key on the keyboard
+  if (e.keyCode === 13) {
+    // Cancel the default action, if needed
+    e.preventDefault();
+    // Trigger the button element with a click
+    btn2.click();
+  }
+})
+
+// 3
+const inp3 = document.querySelector('.inp3')
+const view3 = document.querySelector('.view3')
+const cont3 = document.querySelector('.cont3')
+
+const runApp3 = () => {
+  cont3.innerHTML = `<button class="btn3">Start</button>`
+  inp3.value = ''
+  view3.innerText = ''
+  const btn3 = document.querySelector('.btn3')
+
+  btn3.onclick = () => {
+    let target = inp3.value
+    cont3.innerHTML = `<button class="filter">Filter</button> <button class="reset">Reset</button>`
+
+    inp3.value = ''
+
+    const filter = document.querySelector('.filter')
+    const reset = document.querySelector('.reset')
+
+    filter.onclick = () => {
+      const input = inp3.value
+      const result = input.replace(target, '')
+      
+      view3.innerText = result
+    }
+
+    reset.onclick = runApp3
+  }
+}
+
+runApp3()
+
+// 4
+const btn4 = document.querySelector('.btn4')
+const view4 = document.querySelector('.view4')
+
+let number = 0
+view4.innerText = `${number}`
+
+btn4.onclick = () => {
+  number += 1
+  view4.innerText = `${number}`
+}
+
+// 5
+const btn5 = document.querySelector('.btn5')
+const view5 = document.querySelector('.view5')
+
+let toggled = false
+
+btn5.onclick = () => {
+  if (!toggled) {
+    view5.innerHTML = `<h1>HELLO WORLD</h1>`
+    toggled = true
+  }
+  else {
+    view5.innerHTML = ``
+    toggled = false
+  }
+}
+
+
+
+</script>
+</body>
+</html>
