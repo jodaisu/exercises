@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS2</title>
+</head>
+<body>
+  <!- 1 ->
+  <h1 class="h1">Change Me</h1>
+  <input class="inputText" type="text" placeholder="type here">
+  <button class="btn" style="margin-bottom: 1em;">OK</button>
+  <br>
+
+  <!- 2 ->
+  <div class="container">
+    <button class="start">START</button>
+  </div>
+  <br>
+
+  <!- 3 ->
+  <div class="container3">
+    <input class="input3" type="number"> <button class="go">Go</button>
+  </div>
+  <br />
+
+  <!- 4 ->
+  <input class="inp4" type="number"> <button class="btn4":>Click Me</button>
+  <h1 class="view4"></h1>
+  <br />
+
+  <!- 5 ->
+  <input class="inp5" type="text"> <button class="break">Break</button>
+  <div class="view5"></div>
+  <br />
+
+  <!- 6 ->
+  <input class="inp6" type="number"> <button class="btn6">START</button>
+  <div class="view6"></div> 
+  <br />
+
+  <!- 7 ->
+  <input class="inp7" type="text"> <button class="btn7">TYPE</button>
+  <div class="view7"></div>
+
+  <! - 8 ->
+  <h1 class="view8">
+    00:00
+  </h1> <button class="btn8">START</button> <button class="pause">PAUSE</button> <button class="reset8">RESET</button>
+  <br />
+
+  <! - 9 ->
+  <input class="inp9" type="text" placeholder="type here"> <input class="speed" type="number">
+  <div class="view9"></div>
+  
+</body>
+<script>
+  // 1
+  const btn = document.querySelector('.btn')
+  const heading = document.querySelector('.h1')
+  const text = document.querySelector('.inputText')
+  btn.onclick = () => {
+    heading.innerText = text.value
+  }
+
+
+  // 2
+  const container = document.querySelector('.container')
+
+  const startApp = () => {
+    container.innerHTML = `
+    <button class="start">START</button>
+    `
+
+    const start = document.querySelector('.start')
+
+    start.onclick = () => {
+    container.innerHTML = `
+      <input class="input" type="text"> 
+      <button class="cancel" style="margin-bottom: 1em">Cancel</button>
+    `
+    const cancel = document.querySelector('.cancel')
+    cancel.onclick = startApp
+    }
+  }
+  startApp()
+
+
+  // 3
+  const container3 = document.querySelector('.container3')
+
+  const startApp3 = () => {
+    container3.innerHTML = `
+      <input class="input3" type="number"> <button class="go">Go</button>
+      `
+    const input3 = document.querySelector('.input3')
+    const go = document.querySelector('.go')
+
+    const run = () => {
+      let num = +input3.value
+      container3.innerHTML = `
+        <input class="addNum" type="number"> <button class="addBtn">Add</button> <button class="reset">Reset</button>
+        <div class="view"></div>
+        `
+      const view = document.querySelector('.view')
+      const addBtn = document.querySelector('.addBtn')
+      const addNum = document.querySelector('.addNum')
+      const reset = document.querySelector('.reset')
+
+      view.innerHTML= `<h2>${num} + </h2>`
+
+      addBtn.onclick = () => {
+        let num2 = +addNum.value
+        const result = num + num2
+        view.innerHTML = `<h2>${num} + ${num2} = ${result}</h2>`
+      }
+      reset.onclick = startApp3
+    }
+    go.onclick = run
+  }
+  startApp3()
+
+  // 4
+  const inp4 = document.querySelector('.inp4')
+  const btn4 = document.querySelector('.btn4')
+  const view4 = document.querySelector('.view4')
+
+  btn4.onclick = () => {
+    const num4 = +inp4.value
+    const hello = "Hello"
+    const printResult = (str, num, result = '') => {
+      if (num === 0) {
+        return result
+      }
+      result += str
+      return printResult(str, num - 1, result)
+    }
+    view4.innerHTML = printResult('Hello', num4)
+  }
+
+  // 5
+  const inp5 = document.querySelector('.inp5')
+  const btn5 = document.querySelector('.break')
+  const view5 = document.querySelector('.view5')
+  
+  btn5.onclick = () => {
+    const str5 = inp5.value
+    const breaker = (str, i = 0, result = '') => {
+      let tag = `<h1>${str[i]}</h1> `
+      if (i === str.length) {
+        return result
+      }
+      result += tag
+      return breaker(str, i + 1, result)
+    }
+    const result = breaker(str5)
+    view5.innerHTML = result
+  }
+
+  // 6
+  const inp6 = document.querySelector('.inp6')
+  const view6 = document.querySelector('.view6')
+  const btn6 = document.querySelector('.btn6')
+
+  btn6.onclick = () => {
+    const array = []
+    const input = +inp6.value
+    const isPrime = (num, i = 2) => {
+      if (i === num) return true
+      if (Math.abs(num) === 1 || num % i === 0) {
+        return false
+      }
+      return isPrime(num, i + 1)
+    }
+
+    // get all primes up to number
+    const primeMachine = (num, i = 2) => {
+      // if i === num, break
+      if (i > num) return
+      // if i is prime, push to array
+      if (isPrime(i)) array.push(i)
+      return primeMachine(num, i + 1)
+    }
+    primeMachine(input)
+
+    // iterate thru array then inject innerhtml
+    const string = (array, i = 0, result = '') => {
+      if (i === array.length) return result
+      let tag = `<h1>${array[i]}</h1> `
+      result += tag
+      return string(array, i + 1, result)
+    }
+    view6.innerHTML = string(array)
+  }
+
+  // 7
+  // <input class="inp7" type="text"> <button class="btn7">TYPE</button>
+  // <div class="view7"></div>
+  const inp7 = document.querySelector('.inp7')
+  const view7 = document.querySelector('.view7')
+  const btn7 = document.querySelector('.btn7')
+
+  const timeOut = () => {
+    const string = inp7.value
+    // set timeout recursively
+    const printRecursively = (string, i = 0, result = '') => {
+      if (i === string.length) return
+      result += string[i]
+      
+      setTimeout(() => {
+        document.querySelector('.view7').innerText = result
+        return printRecursively(string, i + 1, result)
+      }, 200)
+    }
+    printRecursively(string)
+  }
+  btn7.onclick = timeOut
+
+  // 8
+  const view8 = document.querySelector('.view8')
+  const btn8 = document.querySelector('.btn8')
+  const pause = document.querySelector('.pause')
+  const reset8 = document.querySelector('.reset8')
+
+  const display = (duration) => {
+    const milli = Math.floor((duration % 1000) / 10)
+    const sec = Math.floor((duration / 1000) % 60)
+
+    const milliseconds = (milli < 10) ? `0${milli}` : milli
+    const seconds = (sec < 10) ? `0${sec}` : sec
+
+    return `${seconds}:${milliseconds}`
+  }
+
+  let isRunning = false
+  let isPaused = false
+  let counter = 0
+
+  const runTimer = () => {
+    if (!isRunning || isPaused) return
+    counter = counter + 10
+    setTimeout(() => {
+      view8.innerText = display(counter)
+      return runTimer()
+    }, 10)
+  } 
+
+  btn8.onclick = () => {
+    if (isRunning) {
+      counter = 0
+      isPaused = false
+      return
+    }
+    if (!isPaused && !isRunning) {
+    isRunning = true
+    return runTimer()
+    }
+    if (isPaused) {
+      pause.innerHTML = "PAUSE"
+      counter = 0
+      isPaused = false
+      isRunning = true
+      runTimer()
+    }
+  }
+  
+  pause.onclick = () => {
+    if (!isPaused && isRunning) {
+      isPaused = true
+      isRunning = false
+      pause.innerText = "UNPAUSE"
+      return
+    }
+    if (isPaused) {
+      isRunning = true
+      isPaused = false
+      pause.innerHTML = "PAUSE"
+      runTimer()
+    }
+  }
+  reset8.onclick = () => {
+    if (isPaused) {
+      isPaused = false
+      view8.innerText = "00:00"
+      pause.innerText = "PAUSE"
+    }
+    isRunning = false
+    counter = 0
+  }
+
+  // 9
+  // <input class="inp9" type="text" placeholder="string"> <input class="speed" type="number">
+  // <div class="view9"></div>  
+  const view9 = document.querySelector('.view9')
+  const inp9 = document.querySelector('.inp9')
+  const speed = document.querySelector('.speed')
+
+  const defaultText = "Blink Test"
+  const defaultTime = 3
+
+  let shouldHide = false
+  // blink logic
+  const blink = () => {
+    let txt = inp9.value || defaultText
+    if (shouldHide) {
+      txt = ''
+    }
+    view9.innerText = txt
+    shouldHide = !shouldHide
+  
+    const time = +speed.value || defaultTime
+    setTimeout(blink, 1000/time)
+  }
+  blink()
+
+  
+  
+
+</script> 
+</html>
