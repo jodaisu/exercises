@@ -54,3 +54,21 @@ describe('firstXToZero function', () => {
     expect(arr).toEqual([0,0,0,0,0])
   })
 })
+
+describe('allPrime function', () => {
+  it('should return true if all elements are prime', () => {
+    const arr = [3,5,7,11]
+    const result = fn.allPrime(arr)
+    expect(result).toEqual(true)
+  })
+  it('should return false if not all elements are prime', () => {
+    const arr = [3,2,5,6,9]
+    const result = fn.allPrime(arr)
+    expect(result).toEqual(false)
+  })
+  it('should return false on empty array', () => {
+    const arr = []
+    const result = fn.allPrime(arr)
+    expect(result).toEqual(undefined)
+  })
+})

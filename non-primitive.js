@@ -20,8 +20,25 @@ const firstXToZero = (arr, num, i = 0) => {
   return firstXToZero(arr, num, i + 1)
 }
 
+const isPrime = (num, i = 2) => {
+  if (i === num) return true
+  if (Math.abs(num) === 1 || num % i === 0) {
+    return false
+  }
+  return isPrime(num, i + 1)
+}
+
+const allPrime = (arr, i = 0) => {
+  if (arr.length === 0) return undefined
+  if (i === arr.length) return true
+  if (!isPrime(arr[i])) return false
+  return allPrime(arr, i + 1)
+}
+
+
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
 allFuns.firstXToZero = firstXToZero
+allFuns.allPrime = allPrime
 
 module.exports = allFuns
