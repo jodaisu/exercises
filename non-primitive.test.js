@@ -72,3 +72,21 @@ describe('allPrime function', () => {
     expect(result).toEqual(undefined)
   })
 })
+
+describe('increasing function', () => {
+  it('should be ascending order', () => {
+    const arr = [1,4,5,87]
+    const result = fn.increasing(arr)
+    expect(result).toEqual(true)
+  })
+  it('should return false for not ascending', () => {
+    const arr = [1,4,100,87]
+    const result = fn.increasing(arr)
+    expect(result).toEqual(false)
+  })
+  it('should return false for a repeated number', () => {
+    const arr = [1,4,4,100,87]
+    const result = fn.increasing(arr)
+    expect(result).toEqual(false)
+  })
+})

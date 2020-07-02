@@ -35,10 +35,23 @@ const allPrime = (arr, i = 0) => {
   return allPrime(arr, i + 1)
 }
 
+const increasing = (arr, i = 1) => {
+  if (i === arr.length) return true
+  
+  // check if curr is bigger than prev
+  let prevNum = arr[i-1]
+  let currNum = arr[i]
+
+  if (prevNum >= currNum) return false
+
+  return increasing(arr, i + 1)
+}
+
 
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
 allFuns.firstXToZero = firstXToZero
 allFuns.allPrime = allPrime
+allFuns.increasing = increasing
 
 module.exports = allFuns
