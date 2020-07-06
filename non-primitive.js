@@ -104,6 +104,46 @@ const onlyIndex = (arr, num, result = []) => {
   return onlyIndex(arr, num, result)
 }
 
+const oddToZero = (arr) => {
+  return arr.map(item => {
+    if (item % 2) return 0
+    return item
+  })
+}
+
+const firstLetters = (arr) => arr.map(item => item[0])
+
+const firstXToZeroMap = (arr, num) => {
+  return arr.map((item, index) => {
+    if (index < num) return 0
+    return item
+  })
+}
+
+const nonPrimeToZero = (arr) => {
+  return arr.map(item => {
+    if (!isPrime(item)) return 0
+    return item
+  })
+}
+
+const append = (arr, str) => {
+  return arr.map(el => {
+    return el + str
+  })
+}
+
+const runOnEachMap = (arr, fun) => {
+  return arr.map((item, i) => {
+    return fun(item, i)
+  })
+}
+
+const clone = (arr) => {
+  return arr.slice()
+}
+
+
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
 allFuns.firstXToZero = firstXToZero
@@ -117,6 +157,13 @@ allFuns.copyLast = copyLast
 allFuns.copyFirst = copyFirst
 allFuns.runOnEach = runOnEach
 allFuns.onlyIndex = onlyIndex
+allFuns.oddToZero = oddToZero
+allFuns.firstLetters = firstLetters
+allFuns.firstXToZeroMap = firstXToZeroMap
+allFuns.nonPrimeToZero = nonPrimeToZero
+allFuns.append = append
+allFuns.runOnEachMap = runOnEachMap
+allFuns.clone = clone
 
 
 module.exports = allFuns
