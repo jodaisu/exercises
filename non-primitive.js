@@ -143,6 +143,17 @@ const clone = (arr) => {
   return arr.slice()
 }
 
+const noMoreEvens = (arr) => {
+  return arr.filter(item => item % 2)
+}
+
+const removeEmpty = (arr) => {
+  return arr.filter(item => item.length)
+}
+
+const primesOnly = (arr) => arr.filter(item => isPrime(item))
+
+const firstPrime = (arr) => arr.find(item => isPrime(item))
 
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
@@ -164,6 +175,9 @@ allFuns.nonPrimeToZero = nonPrimeToZero
 allFuns.append = append
 allFuns.runOnEachMap = runOnEachMap
 allFuns.clone = clone
-
+allFuns.noMoreEvens = noMoreEvens
+allFuns.removeEmpty = removeEmpty
+allFuns.primesOnly = primesOnly
+allFuns.firstPrime = firstPrime
 
 module.exports = allFuns
