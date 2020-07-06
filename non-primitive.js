@@ -47,11 +47,76 @@ const increasing = (arr, i = 1) => {
   return increasing(arr, i + 1)
 }
 
+const copyArray = (a, result = []) => {
+  if (result.length === a.length) {
+    return result
+  }
+  result.push(a[result.length])
+  return copyArray(a, result)
+}
+
+const removeElement = (arr, str, i = 0) => {
+  if (i === arr.length) return arr
+  if (arr[i] === str) {
+    arr.splice(i, 1)
+    return removeElement(arr, str, i)
+  }
+  return removeElement(arr, str, i + 1)
+}
+
+const copyWithout = (a, str, result = [], i = 0) => {
+  if (i === a.length) return result
+  if (a[i] === str) return copyWithout(a, str, result, i + 1)
+  result.push(a[i])
+  return copyWithout(a, str, result, i + 1)
+}
+
+const copyReverse = (a, result = []) => {
+  if (a.length === result.length) return result
+  result.push(a[(a.length - 1) - result.length])
+  return copyReverse(a, result)
+}
+
+const copyLast = (arr, num, result = []) => {
+  if (num > arr.length) return result
+  if (result.length === (arr.length - num)) return result
+  result.unshift(arr[(arr.length - 1) - result.length])
+  return copyLast(arr, num, result)
+}
+
+const copyFirst = (arr, num, result = []) => {
+  if (num > arr.length) return result
+  if (result.length === (arr.length - num)) return result
+  result.push(arr[result.length])
+  return copyFirst(arr, num, result)
+}
+
+const runOnEach = (arr, fun, result = [], i = 0) => {
+  if (result.length === arr.length) return result
+  result.push(fun(arr[i], i))
+  return runOnEach(arr, fun, result, i + 1)
+}
+
+const onlyIndex = (arr, num, result = []) => {
+  if (num >= arr[0].length) return []
+  if (result.length === arr.length) return result
+  result.push(arr[result.length][num])
+  return onlyIndex(arr, num, result)
+}
 
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
 allFuns.firstXToZero = firstXToZero
 allFuns.allPrime = allPrime
 allFuns.increasing = increasing
+allFuns.copyArray = copyArray
+allFuns.removeElement = removeElement
+allFuns.copyWithout = copyWithout
+allFuns.copyReverse = copyReverse
+allFuns.copyLast = copyLast
+allFuns.copyFirst = copyFirst
+allFuns.runOnEach = runOnEach
+allFuns.onlyIndex = onlyIndex
+
 
 module.exports = allFuns
