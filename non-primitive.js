@@ -155,6 +155,109 @@ const primesOnly = (arr) => arr.filter(item => isPrime(item))
 
 const firstPrime = (arr) => arr.find(item => isPrime(item))
 
+const sum = (arr) => {
+  return arr.reduce((acc, el) => {
+    return acc + el
+  }, 0)
+}
+
+const largest = (arr) => {
+  if (!arr.length) return 0
+  return arr.reduce((acc, el) => {
+    if (el > acc) return el
+    return acc 
+  }, arr[0])
+}
+
+const longest = (arr) => {
+  return arr.reduce((acc, el) => {
+    if (el.length > acc.length) return el
+    return acc
+  }, arr[0])
+}
+
+const matches = (arr, match) => {
+  return arr.reduce((acc, el) => {
+    if (el === match) acc += 1
+    return acc
+  }, 0)
+}
+
+const combineLess5 = (arr) => {
+  return arr.reduce((acc, el) => {
+    if (el.length < 5) acc += el
+    return acc
+  }, "")
+}
+
+const largerThan5 = (arr) => {
+  return arr.reduce((acc, el) => {
+    if (el > 5) acc.push(el)
+    return acc
+  }, [])
+}
+
+const largerThan5Filter = (arr) => arr.filter(item => item > 5)
+
+Array.prototype.last = function() {
+  return this[ this.length-1 ]
+}
+
+Array.prototype.getEvens = function(i=0, result=[]) {
+  if (i === this.length) return result
+  if (this[i] % 2 === 0) result.push(this[i])
+  return this.getEvens(i+1, result)
+}
+
+Array.prototype.sum = function() {
+  if (this.length === 0) return undefined
+  return this.reduce((acc, curr) => {
+    return acc + curr
+  })
+}
+
+Array.prototype.pad = function(times, str) {
+  if (times <= 0) return this
+  this.push(str)
+  return this.pad(times-1, str)
+}
+
+Array.prototype.fizzbuzz = function() {
+  return this.forEach((num, i) => {
+    if (num % 3 === 0 && num % 5 === 0) return this[i] = "fizzbuzz"
+    if (num % 5 === 0) return this[i] = "buzz"
+    if (num % 3 === 0) return this[i] = "fizz"
+  })
+}
+
+Array.prototype.removeEvens = function(i=0) {
+  if (this.length === 0) return this
+  if (!this[i]) return
+  if (this[i] % 2 === 0) {
+    this.splice(i, 1)
+    return this.removeEvens(i)
+  }
+  return this.removeEvens(i+1)
+}
+
+Array.prototype.getIterator = function() {
+  const array = this
+  let count = 0
+  return function() {
+    if (count === array.length) {
+      count = 0
+      return array[count++]
+    }
+    return array[count++]
+  }
+}
+
+
+
+
+
+
+
 allFuns.selectiveZero = selectiveZero
 allFuns.largestNum = largestNum
 allFuns.firstXToZero = firstXToZero
@@ -179,5 +282,12 @@ allFuns.noMoreEvens = noMoreEvens
 allFuns.removeEmpty = removeEmpty
 allFuns.primesOnly = primesOnly
 allFuns.firstPrime = firstPrime
+allFuns.sum = sum
+allFuns.largest = largest
+allFuns.longest = longest
+allFuns.matches = matches
+allFuns.combineLess5 = combineLess5
+allFuns.largerThan5 = largerThan5
+allFuns.largerThan5Filter = largerThan5Filter
 
 module.exports = allFuns
