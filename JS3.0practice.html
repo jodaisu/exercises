@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h2>Add options</h2>
+<h2>ADD OPTIONS</h2>
 <input class="inp1" type="text"> <button class="btn1">Add</button>
 <div><select class="sel1"></select></div>
 <script>
@@ -32,9 +32,52 @@
   })
 </script>
 
+<h2>TODO LIST</h2>
+<input class="inp2" type="text"> <button class="btn2">Add</button>
+<div class="view2"></div>
+
+<script>
+  const inp2 = document.querySelector('.inp2')
+  const btn2 = document.querySelector('.btn2')
+  const view2 = document.querySelector('.view2')
+
+  const lsData = localStorage.getItem('mydata') || '[]'
+
+  let arr2 = JSON.parse(lsData)
+
+  const removeElement = (e) => {
+    console.log('inside rem', e.target.id)
+    const newArray = arr2.filter((item, i) => i !== +e.target.id)
+    arr2 = newArray
+    localStorage.setItem('mydata', JSON.stringify(newArray))
+    renderList(newArray)
+  }
+
+  const renderList = (array) => {
+    view2.innerHTML = array.reduce((acc, item, i) => {
+      return acc + `<h2 id=${i} class="todo">${item}</h2>`
+    },'')
+    const buttons = document.querySelectorAll(".todo")
+    buttons.forEach((item, i) => {
+      item.addEventListener('click', removeElement)
+    })
+  }
+
+  const submit2 = () => {
+    arr2.unshift(inp2.value)
+    localStorage.setItem('mydata', JSON.stringify(arr2))
+    renderList(arr2)
+    inp2.value = ""
+
+  }
+
+  btn2.addEventListener('click', submit2)
+
+  inp2.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) return submit2()
+  })
+  renderList(arr2)
 
 
-
-
-
+</script>
 </body>
