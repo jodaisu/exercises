@@ -1,0 +1,24 @@
+<input type="text" class="textBox" />
+<button class="submit">Store it</button>
+
+<script>
+const submitButton = document.querySelector(".submit")
+const textBox = document.querySelector(".textBox")
+
+// First grab what's already in local storage.
+// We use || '[]' to start an array the first time
+//   because getItem will return null
+const lsData = localStorage.getItem('mydata') || '[]' 
+
+// Turn string into an array
+const dataArray = JSON.parse(lsData)
+
+submitButton.onclick = () => {
+    // Push the new text into it
+    dataArray.push(textBox.value)
+    // Store it back, turning it into a string on the way
+    localStorage.setItem('mydata', JSON.stringify(dataArray))
+    // Then console.log everything stored up till now
+    console.log(dataArray)
+}
+</script>

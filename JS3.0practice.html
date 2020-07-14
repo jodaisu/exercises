@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS2.1</title>
+</head>
+<body>
+
+<h2>Add options</h2>
+<input class="inp1" type="text"> <button class="btn1">Add</button>
+<div><select class="sel1"></select></div>
+<script>
+  const inp1 = document.querySelector('.inp1')
+  const btn1 = document.querySelector('.btn1')
+  const sel1 = document.querySelector('.sel1')
+
+  const arr1 = []
+
+  const submit1 = () => {
+    arr1.push(inp1.value)
+    sel1.innerHTML = arr1.reduce((acc, el) => {
+      return acc + `<option>${el}</option>`
+    }, '')
+    inp1.value = ""
+  }
+
+  btn1.addEventListener('click', submit1)
+
+  inp1.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) return submit1()
+  })
+</script>
+
+
+
+
+
+
+</body>
