@@ -32,14 +32,21 @@
   })
 </script>
 
+
+
+
+
 <h2>TODO LIST</h2>
 <input class="inp2" type="text"> <button class="btn2">Add</button>
+<input class="filterInp" type="text"> <button class="filterBtn">Filter</button>
 <div class="view2"></div>
 
 <script>
   const inp2 = document.querySelector('.inp2')
   const btn2 = document.querySelector('.btn2')
   const view2 = document.querySelector('.view2')
+  const filterBtn = document.querySelector('.filterBtn')
+  const filterInp = document.querySelector('.filterInp')
 
   const lsData = localStorage.getItem('mydata') || '[]'
 
@@ -70,14 +77,107 @@
     inp2.value = ""
 
   }
+  
+  const filterList = () => {
+    const filterString = filterInp.value
+    const newArray = arr2.filter(item => {
+      return item.includes(filterString)
+    })
+    return renderList(newArray)
+  }
+
+  filterBtn.addEventListener('click', filterList)
 
   btn2.addEventListener('click', submit2)
 
   inp2.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) return submit2()
   })
-  renderList(arr2)
 
+  renderList(arr2)
+</script>
+
+
+
+<h2>STORYBOOK</h2>
+<button class="prev">Previous</button> <button class="next">Next</button>
+<hr>
+<div class="currStoryView"></div>
+<hr>
+<textarea class="storyInp"></textarea> <button class="submitStory">Submit</button>
+<div class="view3"></div>
+
+<script>
+  const prev = document.querySelector('.prev')
+  const next = document.querySelector('.next')
+  const view3 = document.querySelector('.view3')
+  const storyInp = document.querySelector('.storyInp')
+  const submitStory = document.querySelector('.submitStory')
+  const currStoryView = document.querySelector('.currStoryView')
+
+  const storyData = localStorage.getItem('story') || '[]'
+  
+  let currentStory = localStorage.getItem('story') || ''
+
+  // render currentStory on pageload if present
+  if (currentStory) {
+    const currStoryArray = JSON.parse(currentStory)
+    currStoryView.innerHTML = currStoryArray[0]
+  }
+   // initialize stories on page load
+  let stories = JSON.parse(storyData)
+  let deleted = ''
+
+  const renderStories = () => {
+    // reduce array to print h2's with innerHTML
+    view3.innerHTML = stories.reduce( (acc, curr, i) => {
+      return acc + `<h3 id="${i}" class="story">${curr}</h3>`
+    }, '')
+    // add a remove function for each rendered node
+    const storyNodes = document.querySelectorAll('.story')
+    storyNodes.forEach(item => {
+      item.addEventListener('click', removeStory)
+    })
+    storyInp.value = ""
+  }
+
+  const addStory = () => {
+    if (storyInp.value.length < 1) return alert('not enough chars')
+    else {
+      stories.unshift(storyInp.value)
+      localStorage.setItem('story', JSON.stringify(stories))
+      if (stories.length === 1) currStoryView.innerHTML = storyInp.value
+      return renderStories()
+    }
+  }
+
+  const removeStory = (e) => {
+    deleted = e.target.id
+    const newArray = stories.filter((item, i) => i !== +e.target.id)
+    stories = newArray
+    localStorage.setItem('story', JSON.stringify(stories))
+    renderStories()
+  }
+
+  const renderPrev = () => {
+  // render the previous element before the match
+    const currentIndex = stories.indexOf(currStoryView.innerHTML)
+    currStoryView.innerHTML = stories[currentIndex - 1] || stories[currentIndex] || stories[deleted-1] || ''
+  }
+
+  const renderNext = () => {
+    // render the next element after the match
+    
+    const currentIndex = stories.indexOf(currStoryView.innerHTML)
+
+    currStoryView.innerHTML = stories[deleted] || stories[currentIndex + 1] || stories[currentIndex] || ''
+  }
+
+  submitStory.onclick = addStory
+  prev.onclick = renderPrev
+  next.onclick = renderNext
+
+  renderStories()
 
 </script>
 </body>
