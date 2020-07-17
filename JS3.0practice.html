@@ -178,6 +178,43 @@
   next.onclick = renderNext
 
   renderStories()
+</script>
+
+
+
+<h2>Friend's Age</h2>
+<label>Name:</label> <input class="nameInput" type="text"> <label>Age: </label> <input class="ageInp" type="text"> <button class="add4">Add</button>
+<div class="friendsView"></div>
+<script>
+  const nameInput = document.querySelector('.nameInput')
+  const ageInp = document.querySelector('.ageInp')
+  const friendsView = document.querySelector('.friendsView')
+  const addFriend = document.querySelector('.add4')
+  const friends = []
+
+  const renderFriends = () => {
+    const name = nameInput.value
+    const age = ageInp.value
+    friends.push({ name, age })
+    
+    friendsView.innerHTML = friends.reduce((str, friend, i) => {
+      return str + `<h3 class="friend" id=${i}>${friend.name}</h3>`
+    }, '')
+
+    const friendsOnClick = document.querySelectorAll('.friend')
+    friendsOnClick.forEach(friend => {
+      friend.addEventListener('click', displayAlert)
+    })
+  }
+
+  const displayAlert = (e) => {
+    return alert(friends[e.target.id].age)
+  }
+
+  addFriend.onclick = renderFriends
+
 
 </script>
+
+
 </body>
