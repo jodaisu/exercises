@@ -37,11 +37,29 @@ const zeroSquare = (num, res = []) => {
 
 // prepareStage.then(performMagic).then(performMagic).then(performMagic)
 
+const addKV = (obj, key, val) => {
+  return obj[key] = val
+}
+
+const filterNonKeys = (arr, obj) => {
+  return arr.filter(item => obj[item])
+}
+
+const addDescription = (char, info) => {
+  return char.forEach(item => {
+    item.description = info[item.name]
+  })
+}
+
+
 
 fn.mergeArrays = mergeArrays
 fn.firstLongerThan = firstLongerThan
 fn.getReturnValues = getReturnValues
 fn.zeroSquare = zeroSquare
+fn.addKV = addKV
+fn.filterNonKeys = filterNonKeys
+fn.addDescription = addDescription
 
 module.exports = fn
 

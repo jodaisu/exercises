@@ -2,8 +2,8 @@ const fn = require('./objects')
 
 describe('mergeArrays function', () => {
     it('should merge 2 arrays of strings', () => {
-				const arr1 = ["Rattata", "Raticate"]
-				const arr2 = ["Bulbasaur", "Ivysaur", "Venusaur"]
+        const arr1 = ["Rattata", "Raticate"]
+        const arr2 = ["Bulbasaur", "Ivysaur", "Venusaur"]
         const result = fn.mergeArrays(arr1, arr2)
         expect(result).toEqual(["Rattata", "Raticate", "Bulbasaur", "Ivysaur", "Venusaur"])
     })
@@ -19,12 +19,12 @@ describe('mergeArrays function', () => {
 
 describe('firstLongerThan function', () => {
     it('should find a string in the middle of an array', () => {
-				const arr = ["Ekans", "Arbok", "Pikachu", "Raichu"]
+        const arr = ["Ekans", "Arbok", "Pikachu", "Raichu"]
         const result = fn.firstLongerThan(arr, 5)
         expect(result).toEqual("Pikachu")
     })
     it('should find a string at the end of an array', () => {
-				const arr = ["Caterpie", "Metapod", "Butterfree"]
+        const arr = ["Caterpie", "Metapod", "Butterfree"]
         const result = fn.firstLongerThan(arr, 9)
         expect(result).toEqual("Butterfree")
     })
@@ -33,8 +33,8 @@ describe('firstLongerThan function', () => {
         expect(result).toEqual("a")
     })
     it('should return undefined', () => {
-      const result = fn.firstLongerThan([], 5)
-      expect(result).toEqual(undefined)
+        const result = fn.firstLongerThan([], 5)
+        expect(result).toEqual(undefined)
     })
 })
 
@@ -59,26 +59,96 @@ describe('getReturnValues function', () => {
 })
 
 describe('zeroSquare function', () => {
-  it('should create a 1x1 array of zeroes', () => {
-      const square1 = [[0]]
-      expect(fn.zeroSquare(1)).toEqual(square1)
-  })
-  it('should create a 1x1 array of zeroes', () => {
-      const square2 = [
-          [0,0],
-          [0,0]
-      ]
-      expect(fn.zeroSquare(2)).toEqual(square2)
-  })
-  it('should create a 1x1 array of zeroes', () => {
-      const square3 = [
-          [0,0,0],
-          [0,0,0],
-          [0,0,0]
+    it('should create a 1x1 array of zeroes', () => {
+        const square1 = [[0]]
+        expect(fn.zeroSquare(1)).toEqual(square1)
+    })
+    it('should create a 1x1 array of zeroes', () => {
+        const square2 = [
+            [0, 0],
+            [0, 0]
         ]
-      expect(fn.zeroSquare(3)).toEqual(square3)
-  })
-  it('should return an empty array for 0 value', () => {
-      expect(fn.zeroSquare(0)).toEqual([])
-  })
+        expect(fn.zeroSquare(2)).toEqual(square2)
+    })
+    it('should create a 1x1 array of zeroes', () => {
+        const square3 = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+        expect(fn.zeroSquare(3)).toEqual(square3)
+    })
+    it('should return an empty array for 0 value', () => {
+        expect(fn.zeroSquare(0)).toEqual([])
+    })
+})
+
+describe('addKV function', () => {
+    it('should add a key and value to an object', () => {
+        const marvel = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+        }
+        fn.addKV(marvel, "antman", "funny")
+        expect(marvel.antman).toEqual("funny")
+    })
+    it('should add a key and value to an object', () => {
+        const marvel = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+            antman: "funny",
+        }
+        fn.addKV(marvel, "wonderwoman", "smart")
+        expect(marvel.wonderwoman).toEqual("smart")
+    })
+    it('should add a key and value to an object', () => {
+        const marvel = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+            antman: "funny",
+            wonderwoman: "smart",
+        }
+        const b = ["leader", "honest"]
+        fn.addKV(marvel, "captainamerica", ["leader", "honest"])
+        expect(marvel.captainamerica).toEqual(b)
+    })
+})
+
+describe('filterNonKeys function', () => {
+    const avengers = ["ironman", "strange", "thor", "spiderman", "hulk"]
+    const info = {
+        ironman: "arrogant",
+        spiderman: "naive",
+        hulk: "strong",
+    }
+    it('should return an empty array when filtering on an empty object', () => {
+        const result = fn.filterNonKeys(avengers, {})
+        expect(result).toEqual([])
+    })
+    it('should return an empty array when starting with an empty array', () => {
+        const result = fn.filterNonKeys([], info)
+        expect(result).toEqual([])
+    })
+    it('should return an empty array if no matches are found', () => {
+        const b = ["batman", "superman", "flash"]
+        const result = fn.filterNonKeys(b, info)
+        expect(result).toEqual([])
+    })
+})
+
+describe('addDescription function', () => {
+    const chars = [{ name: 'Ironman' }, { name: 'Captain America' }, { name: 'Falcon' }]
+    const info = {
+        'Ironman': 'Smart',
+        'Captain America': 'Loyal',
+        'Falcon': 'Black'
+    }
+
+    it('should add description for the respective hero', () => {
+        fn.addDescription(chars, info)
+        expect(chars[0].description).toEqual('Smart')
+    })
 })
