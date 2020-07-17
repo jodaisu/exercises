@@ -139,16 +139,67 @@ describe('filterNonKeys function', () => {
     })
 })
 
-describe('addDescription function', () => {
-    const chars = [{ name: 'Ironman' }, { name: 'Captain America' }, { name: 'Falcon' }]
-    const info = {
-        'Ironman': 'Smart',
-        'Captain America': 'Loyal',
-        'Falcon': 'Black'
-    }
+describe('addDescriptions function', () => {
+    it('should add 3 descriptions to corresponding names', () => {
+        const characters = [{ name: "ironman" },
+        { name: "spiderman" }, { name: "hulk" }]
+        const info = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+        }
+        fn.addDescriptions(characters, info)
+        expect(characters).toEqual([
+            { name: "ironman", description: "arrogant" },
+            { name: "spiderman", description: "naive" },
+            { name: "hulk", description: "strong" }
+        ])
+    })
+    it('should not add descriptions to objects without names', () => {
+        const characters = [{ tonyStark: "ironman" },
+        { peterParker: "spiderman" }, { name: "hulk" }]
+        const info = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+        }
+        fn.addDescriptions(characters, info)
+        expect(characters).toEqual([
+            { tonyStark: "ironman" },
+            { peterParker: "spiderman" },
+            { name: "hulk", description: "strong" }
+        ])
+    })
+    it('should ignore unmatched keys', () => {
+        const characters = [{ name: "ironman" },
+        { name: "rocket" }, { name: "drax" }]
+        const info = {
+            ironman: "arrogant",
+            spiderman: "naive",
+            hulk: "strong",
+        }
+        fn.addDescriptions(characters, info)
+        expect(characters).toEqual([
+            { name: "ironman", description: "arrogant" },
+            { name: "rocket" },
+            { name: "drax" }
+        ])
+    })
+})
 
-    it('should add description for the respective hero', () => {
-        fn.addDescription(chars, info)
-        expect(chars[0].description).toEqual('Smart')
+describe('countOccurrences function', () => {
+    it('should count occurrences of strings', () => {
+        const abc = ["abc", "a", "abc", "b", "abc", "a", "b", "c", "abc"]
+        const result = fn.countOccurrences(abc)
+        expect(result).toEqual({ abc: 4, a: 2, b: 2, c: 1 })
+    })
+    it('should count occurrences of numbers', () => {
+        const nums = [0, 3, 3, 1, 0, 0, 3, 0, 0, 2]
+        const result = fn.countOccurrences(nums)
+        expect(result).toEqual({ '0': 5, '3': 3, '1': 1, '2': 1 })
+    })
+    it('should return an empty object for an empty array', () => {
+        const result = fn.countOccurrences([])
+        expect(result).toEqual({})
     })
 })

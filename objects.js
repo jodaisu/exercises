@@ -45,10 +45,17 @@ const filterNonKeys = (arr, obj) => {
   return arr.filter(item => obj[item])
 }
 
-const addDescription = (char, info) => {
+const addDescriptions = (char, info) => {
   return char.forEach(item => {
     item.description = info[item.name]
   })
+}
+
+const countOccurrences = (arr) => {
+  return arr.reduce((acc, item) => {
+    acc[item] = (acc[item] || 0) + 1
+    return acc
+  }, {})
 }
 
 
@@ -59,7 +66,8 @@ fn.getReturnValues = getReturnValues
 fn.zeroSquare = zeroSquare
 fn.addKV = addKV
 fn.filterNonKeys = filterNonKeys
-fn.addDescription = addDescription
+fn.addDescriptions = addDescriptions
+fn.countOccurrences = countOccurrences
 
 module.exports = fn
 
